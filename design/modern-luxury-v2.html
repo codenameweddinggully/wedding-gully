@@ -1,0 +1,752 @@
+<title>Wedding Gully — On Being Remembered</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  /* ============ TOKENS (inherited from v1, unchanged) ============ */
+  :root {
+    --ink:      #0C0C0D;
+    --ivory:    #F3EEE4;
+    --paper:    #EEE8DC;
+    --brass:    #9C8352;
+    --brass-lo: #b79a68;
+    --stone:    #7B776E;
+    --panel:    #ffffff;
+    --line:     rgba(12,12,13,.16);
+    --line-2:   rgba(12,12,13,.09);
+    --plate:    #E4DCCB;
+    --plate-ink:#25231d;
+
+    --fg:       var(--ink);
+    --bg:       var(--ivory);
+    --muted:    var(--stone);
+    --accent:   var(--brass);
+
+    --serif: "Didot", "Bodoni MT", "Hoefler Text", "Playfair Display", "Cambria", Georgia, "Times New Roman", serif;
+    --sans:  "Neue Haas Grotesk Display", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+
+    --maxw: 1180px;
+    --measure: 680px;
+    --gut: clamp(20px, 5vw, 72px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fg: var(--ivory);
+      --bg: var(--ink);
+      --muted: #97928a;
+      --accent: var(--brass-lo);
+      --panel: #151517;
+      --paper: #121214;
+      --line: rgba(243,238,228,.16);
+      --line-2: rgba(243,238,228,.08);
+      --plate: #1b1b1d;
+      --plate-ink: #d9d2c4;
+    }
+  }
+  :root[data-theme="light"] {
+    --fg: var(--ink); --bg: var(--ivory); --muted: var(--stone);
+    --accent: var(--brass); --panel: #ffffff; --paper: #EEE8DC;
+    --line: rgba(12,12,13,.16); --line-2: rgba(12,12,13,.09);
+    --plate: #E4DCCB; --plate-ink:#25231d;
+  }
+  :root[data-theme="dark"] {
+    --fg: var(--ivory); --bg: var(--ink); --muted: #97928a;
+    --accent: var(--brass-lo); --panel: #151517; --paper: #121214;
+    --line: rgba(243,238,228,.16); --line-2: rgba(243,238,228,.08);
+    --plate: #1b1b1d; --plate-ink:#d9d2c4;
+  }
+
+  /* ============ BASE ============ */
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){ html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: var(--sans);
+    font-size: 16px; line-height: 1.6;
+    letter-spacing: .01em;
+    transition: background .5s ease, color .5s ease;
+  }
+  ::selection { background: var(--accent); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+  h1,h2,h3,h4 { margin: 0; font-weight: 400; text-wrap: balance; }
+  p { margin: 0; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gut); }
+
+  .eyebrow {
+    font-family: var(--sans); font-size: 11px; font-weight: 500;
+    letter-spacing: .28em; text-transform: uppercase; color: var(--muted);
+  }
+  .rule { height: 1px; background: var(--line); border: 0; }
+  .folio {
+    font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ============ TOP BAR ============ */
+  header.bar {
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: saturate(120%) blur(8px);
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .bar-in {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .word {
+    font-family: var(--serif); font-size: 22px; letter-spacing: .02em;
+    display: flex; align-items: baseline; gap: .55em;
+  }
+  .word b { font-weight: 400; }
+  .word .dot { width: 4px; height: 4px; background: var(--accent); display: inline-block; border-radius: 50%; transform: translateY(-3px); }
+  .word small { font-family: var(--sans); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+  nav.links { display: flex; gap: 30px; align-items: center; }
+  nav.links a { font-size: 13px; letter-spacing: .04em; color: var(--muted); transition: color .25s; }
+  nav.links a:hover { color: var(--fg); }
+  .themebtn {
+    font-family: var(--sans); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    background: none; border: 1px solid var(--line); color: var(--muted);
+    padding: 8px 12px; cursor: pointer; transition: all .25s;
+  }
+  .themebtn:hover { color: var(--fg); border-color: var(--fg); }
+  @media (max-width: 760px){ nav.links a:not(.begin){ display:none; } }
+
+  /* ============ 1 · NARRATIVE HERO ============ */
+  .hero { position: relative; min-height: calc(100vh - 68px); display: flex; flex-direction: column; justify-content: center;
+    padding-top: clamp(40px, 8vh, 92px); padding-bottom: clamp(30px, 6vh, 64px); }
+  .hero-tag { display:flex; align-items:center; gap: 14px; margin-bottom: clamp(28px, 5vh, 52px); }
+  .hero-tag .ln { flex: 0 0 44px; height: 1px; background: var(--accent); }
+  h1.cover {
+    font-family: var(--serif);
+    font-size: clamp(38px, 7.4vw, 104px);
+    line-height: 1.02; letter-spacing: -0.015em;
+    max-width: 15ch;
+  }
+  h1.cover em { font-style: italic; }
+  h1.cover .q { color: var(--muted); }
+  .hero-foot {
+    margin-top: clamp(36px, 7vh, 68px);
+    display: grid; grid-template-columns: 1fr auto; gap: clamp(24px, 5vw, 60px);
+    align-items: end;
+  }
+  .hero-lede {
+    max-width: 48ch; color: var(--muted);
+    font-size: clamp(15px, 1.4vw, 18px); line-height: 1.72;
+  }
+  .hero-lede b { color: var(--fg); font-weight: 400; }
+  .scrollcue { display:flex; align-items:center; gap: 12px; white-space: nowrap; color: var(--muted); font-size: 11px; letter-spacing:.2em; text-transform: uppercase; }
+  .scrollcue svg { width: 16px; height: 30px; }
+  .scrollcue .dash { stroke: var(--accent); stroke-width: 1.2; }
+  .scrollcue .dot { fill: var(--accent); animation: fall 2.4s cubic-bezier(.5,0,.5,1) infinite; }
+  @keyframes fall { 0%{ transform: translateY(0); opacity:0 } 25%{opacity:1} 70%{opacity:1} 100%{ transform: translateY(14px); opacity:0 } }
+  @media (prefers-reduced-motion: reduce){ .scrollcue .dot{ animation:none } }
+
+  /* ambient aperture mark, top-right of hero */
+  .aperture {
+    position: absolute; top: clamp(20px, 6vh, 60px); right: var(--gut);
+    width: clamp(120px, 18vw, 210px); height: auto; opacity: .9; pointer-events: none;
+  }
+  .aperture .blade { fill: none; stroke: var(--line); stroke-width: .7; }
+  .aperture .ring  { fill: none; stroke: var(--accent); stroke-width: .8; }
+  .aperture .spin  { transform-origin: 60px 60px; animation: turn 90s linear infinite; }
+  @keyframes turn { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){ .aperture .spin{ animation:none } }
+  @media (max-width: 680px){ .aperture{ width: 96px; opacity:.5; top: 14px; } .hero-foot{ grid-template-columns: 1fr; } .scrollcue{ display:none; } }
+
+  /* ============ 2 · THE ESSAY ============ */
+  .essay { border-top: 1px solid var(--line); padding-block: clamp(64px, 11vh, 132px); }
+  .essay-head { display:grid; grid-template-columns: auto 1fr; gap: clamp(16px,4vw,40px); align-items:baseline; margin-bottom: clamp(40px,7vh,72px); }
+  .essay-head .kf { display:flex; flex-direction: column; gap: 10px; }
+  .essay-head h2 {
+    font-family: var(--serif); font-size: clamp(30px, 5vw, 58px); line-height: 1.03;
+    letter-spacing: -.014em; max-width: 16ch;
+  }
+  .essay-head h2 em { font-style: italic; color: var(--accent); }
+  .essay-body { max-width: var(--measure); margin-left: auto; }
+  .essay-body > p { font-size: clamp(16px, 1.35vw, 19px); line-height: 1.75; margin-bottom: 1.35em; }
+  .essay-body > p:last-child { margin-bottom: 0; }
+  .essay-body b { font-weight: 400; color: var(--fg); }
+  .drop::first-letter {
+    font-family: var(--serif); float: left; font-size: 3.55em; line-height: .78;
+    padding: 6px 14px 0 0; color: var(--accent);
+  }
+  .pull {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(22px, 3vw, 34px); line-height: 1.28; letter-spacing: -.01em;
+    color: var(--fg); border-left: 2px solid var(--accent);
+    padding: 6px 0 6px 26px; margin: clamp(30px,5vh,52px) 0;
+    max-width: 22ch;
+  }
+
+  /* ============ 3 · CURATED STUDIOS (editorial profiles) ============ */
+  .curated { border-top: 1px solid var(--line); padding-block: clamp(60px, 10vh, 120px); }
+  .sec-lead { display:flex; justify-content: space-between; align-items:flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(38px,6vh,64px); }
+  .sec-lead .kf { display:flex; flex-direction:column; gap: 14px; }
+  .sec-lead h2 { font-family: var(--serif); font-size: clamp(28px, 4vw, 46px); line-height: 1.04; letter-spacing:-.012em; max-width: 18ch; }
+  .sec-lead h2 em { font-style: italic; }
+  .sec-lead p { color: var(--muted); max-width: 34ch; font-size: 14px; }
+
+  .studio { display:grid; grid-template-columns: clamp(120px, 18vw, 210px) 1fr auto; gap: clamp(20px,4vw,56px);
+    align-items: start; padding: clamp(30px,5vh,48px) 0; border-top: 1px solid var(--line-2); }
+  .studio:first-of-type { border-top: 0; }
+  .plate {
+    aspect-ratio: 4/5; background: var(--plate); position: relative; overflow:hidden;
+    display:grid; place-items:center; border: 1px solid var(--line-2);
+  }
+  .plate .mng { font-family: var(--serif); font-size: clamp(42px,7vw,64px); color: var(--plate-ink); opacity:.45; }
+  .plate .verified { position:absolute; bottom:12px; right:12px; width:24px; height:24px; }
+  .plate .verified circle{ fill:none; stroke: var(--accent); stroke-width:1; }
+  .plate .verified path{ stroke: var(--accent); stroke-width:1.4; fill:none; }
+  .studio-body .loc { font-size: 11.5px; letter-spacing:.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display:flex; gap:10px; align-items:center; }
+  .studio-body .loc .vtag { color: var(--accent); }
+  .studio-body h3 { font-family: var(--serif); font-size: clamp(24px, 3.2vw, 36px); line-height: 1.05; letter-spacing:-.01em; margin-bottom: 14px; }
+  .studio-body p { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 52ch; }
+  .studio-body p em { font-style: italic; color: var(--fg); }
+  .studio-meta { text-align: right; display:flex; flex-direction: column; gap: 6px; min-width: 130px; }
+  .studio-meta .reg { font-family: var(--serif); font-style: italic; font-size: 17px; }
+  .studio-meta .det { font-size: 11px; letter-spacing:.14em; text-transform: uppercase; color: var(--muted); }
+  @media (max-width: 820px){
+    .studio { grid-template-columns: 96px 1fr; grid-template-areas: "plate body" "meta meta"; }
+    .studio .plate { grid-area: plate; aspect-ratio: 3/4; }
+    .studio-body { grid-area: body; }
+    .studio-meta { grid-area: meta; text-align:left; flex-direction: row; gap: 20px; padding-top: 6px; border-top: 1px solid var(--line-2); }
+  }
+  @media (max-width: 480px){ .studio{ grid-template-columns: 1fr; grid-template-areas: "body" "meta"; } .studio .plate{ display:none; } }
+
+  /* ============ 4 · THE INVITATION + QUIZ ============ */
+  .invite { border-top: 1px solid var(--line); background: var(--paper); padding-block: clamp(60px, 10vh, 120px); transition: background .5s ease; }
+  .invite-head { text-align: center; max-width: 30ch; margin: 0 auto clamp(40px,6vh,60px); display:flex; flex-direction: column; align-items:center; gap: 18px; }
+  .invite-head h2 { font-family: var(--serif); font-size: clamp(30px, 4.6vw, 54px); line-height: 1.04; letter-spacing:-.014em; }
+  .invite-head h2 em { font-style: italic; color: var(--accent); }
+  .invite-head p { color: var(--muted); font-size: 15px; max-width: 42ch; }
+
+  .quiz-card { border: 1px solid var(--line); background: var(--panel); position: relative; max-width: 860px; margin: 0 auto; }
+  :root{ --pad: clamp(22px,4vw,44px); }
+  .quiz-top { display:flex; align-items:center; justify-content: space-between; padding: 22px var(--pad); border-bottom: 1px solid var(--line-2); }
+  .steps { display:flex; gap: 26px; align-items:center; }
+  .step { display:flex; align-items:center; gap:9px; font-size:12px; letter-spacing:.03em; color: var(--muted); transition: color .3s; cursor: pointer; background:none; border:0; font-family: var(--sans); }
+  .step .num { width: 22px; height:22px; border:1px solid var(--line); display:grid; place-items:center; font-size:11px; font-variant-numeric: tabular-nums; transition: all .3s; }
+  .step.active { color: var(--fg); }
+  .step.active .num { border-color: var(--accent); color: var(--accent); }
+  .step.done .num { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .step.done { color: var(--fg); }
+  @media (max-width:720px){ .step .lab{ display:none; } }
+
+  .prog { height: 2px; background: var(--line-2); }
+  .prog i { display:block; height:100%; width: 25%; background: var(--accent); transition: width .5s cubic-bezier(.4,0,.1,1); }
+
+  .panel-body { padding: clamp(30px,5vw,56px) var(--pad); min-height: 340px; display:flex; flex-direction: column; }
+  .qslide { display: none; animation: rise .55s cubic-bezier(.2,.7,.2,1) both; }
+  .qslide.on { display: block; }
+  @keyframes rise { from { opacity:0; transform: translateY(14px);} to{opacity:1; transform:none;} }
+  @media (prefers-reduced-motion: reduce){ .qslide{ animation:none } .prog i{ transition:none } }
+
+  .q-count { color: var(--accent); font-family: var(--serif); font-style: italic; font-size: 15px; }
+  .q-title { font-family: var(--serif); font-size: clamp(26px,4vw,44px); line-height:1.06; letter-spacing:-.012em; margin: 10px 0 6px; }
+  .q-help { color: var(--muted); font-size: 14px; margin-bottom: 34px; }
+
+  .opts { display:grid; gap: 12px; }
+  .opts.two { grid-template-columns: 1fr 1fr; }
+  .opts.three { grid-template-columns: repeat(3,1fr); }
+  @media (max-width:640px){ .opts.two,.opts.three{ grid-template-columns:1fr; } }
+
+  .opt {
+    text-align:left; background: transparent; cursor: pointer;
+    border: 1px solid var(--line); padding: 20px 22px;
+    display:flex; flex-direction: column; gap: 5px;
+    transition: border-color .25s, background .25s;
+    position: relative; color: inherit; font-family: var(--sans);
+  }
+  .opt:hover { border-color: var(--accent); }
+  .opt .ot { font-family: var(--serif); font-size: 19px; }
+  .opt .od { font-size: 12.5px; color: var(--muted); letter-spacing:.01em; }
+  .opt[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .opt[aria-pressed="true"]::after { content:""; position:absolute; top:16px; right:16px; width:8px; height:8px; background: var(--accent); border-radius:50%; }
+  .opt:focus-visible, .btn:focus-visible, .themebtn:focus-visible, .step:focus-visible, .textlink:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .budget { margin-top: 6px; }
+  .budget .val { font-family: var(--serif); font-size: clamp(34px,6vw,58px); letter-spacing:-.01em; }
+  .budget .val span { color: var(--muted); font-size: .5em; }
+  .budget .rng { color: var(--muted); font-size: 13px; margin: 4px 0 30px; }
+  input[type=range]{ -webkit-appearance:none; appearance:none; width:100%; height: 2px; background: var(--line); outline:none; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background: var(--bg); border:1.5px solid var(--accent); cursor:pointer; box-shadow: 0 0 0 4px color-mix(in srgb,var(--accent) 14%, transparent); transition: transform .15s; }
+  input[type=range]::-webkit-slider-thumb:hover{ transform: scale(1.12); }
+  input[type=range]::-moz-range-thumb{ width:20px; height:20px; border-radius:50%; background:var(--bg); border:1.5px solid var(--accent); cursor:pointer; }
+  .ticks { display:flex; justify-content: space-between; margin-top: 12px; font-size:11px; color:var(--muted); letter-spacing:.02em; font-variant-numeric: tabular-nums; }
+
+  .datewrap { display:flex; gap: 14px; flex-wrap: wrap; align-items:flex-end; }
+  .field { display:flex; flex-direction: column; gap: 8px; }
+  .field label { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+  .field input, .field select {
+    font-family: var(--sans); font-size: 15px; color: var(--fg);
+    background: transparent; border: 0; border-bottom: 1px solid var(--line);
+    padding: 10px 2px; min-width: 170px;
+  }
+  .field input:focus, .field select:focus { outline:none; border-color: var(--accent); }
+  .field select { cursor:pointer; }
+  .season-note { font-size:12.5px; color: var(--muted); margin-top: 26px; display:flex; gap:8px; align-items:center; }
+  .season-note b { color: var(--accent); font-weight: 400; font-family: var(--serif); font-style: italic; }
+
+  .panel-foot { margin-top: auto; padding-top: 34px; display:flex; justify-content: space-between; align-items:center; gap: 16px; }
+  .btn {
+    font-family: var(--sans); font-size: 12px; letter-spacing:.18em; text-transform: uppercase;
+    padding: 15px 30px; cursor:pointer; border:1px solid var(--fg); background: var(--fg); color: var(--bg);
+    transition: all .25s; display:inline-flex; align-items:center; gap:10px;
+  }
+  .btn:hover { background: transparent; color: var(--fg); }
+  .btn.ghost { background: transparent; color: var(--muted); border-color: var(--line); }
+  .btn.ghost:hover { color: var(--fg); border-color: var(--fg); }
+  .btn[disabled]{ opacity:.35; cursor: not-allowed; }
+  .btn .ar { transition: transform .25s; }
+  .btn:hover .ar { transform: translateX(4px); }
+
+  /* ============ 5 · RESULTS ============ */
+  .results { padding-top: clamp(48px,8vh,90px); padding-bottom: clamp(70px,10vh,120px); scroll-margin-top: 90px; }
+  .results-head { display:flex; justify-content: space-between; align-items:flex-end; gap: 20px; margin-bottom: 8px; flex-wrap: wrap; }
+  .results-head h2 { font-family: var(--serif); font-size: clamp(24px,3vw,34px); }
+  .results-head .meta { color: var(--muted); font-size: 13px; }
+  .results-head .meta b { color: var(--accent); font-weight:400; font-variant-numeric: tabular-nums; }
+  .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin-top: 26px; }
+  @media (max-width: 900px){ .grid{ grid-template-columns: repeat(2,1fr);} }
+  @media (max-width: 620px){ .grid{ grid-template-columns: 1fr;} }
+  .vend { background: var(--bg); padding: 0; display:flex; flex-direction: column; }
+  .vend .rplate { aspect-ratio: 4/3; background: var(--plate); position: relative; overflow:hidden; display:grid; place-items:center; border-bottom: 1px solid var(--line-2); }
+  .vend .rplate .mng { font-family: var(--serif); font-size: clamp(40px,7vw,62px); color: var(--plate-ink); opacity: .5; }
+  .vend .rplate .tag { position:absolute; top:14px; left:14px; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color: var(--plate-ink); opacity:.7; }
+  .vend .rplate .verified { position:absolute; top:12px; right:12px; width:26px; height:26px; }
+  .vend .rplate .verified circle{ fill:none; stroke: var(--accent); stroke-width:1; }
+  .vend .rplate .verified path{ stroke: var(--accent); stroke-width:1.4; fill:none; }
+  .vend-body { padding: 20px 22px 24px; display:flex; flex-direction: column; gap: 10px; flex:1; }
+  .vend h3 { font-family: var(--serif); font-size: 21px; line-height:1.1; }
+  .vend .loc { font-size: 12px; letter-spacing:.14em; text-transform: uppercase; color: var(--muted); }
+  .vend .style-tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:2px; }
+  .vend .style-tags span { font-size: 11px; color: var(--muted); border:1px solid var(--line-2); padding: 3px 9px; }
+  .vend-foot { margin-top:auto; padding-top: 14px; border-top: 1px solid var(--line-2); display:flex; justify-content: space-between; align-items:flex-end; }
+  .price { font-family: var(--serif); font-size: 18px; font-variant-numeric: tabular-nums; }
+  .price small { display:block; font-family: var(--sans); font-size: 10px; letter-spacing:.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .rev { text-align:right; font-size: 12px; color: var(--muted); }
+  .rev .stars { color: var(--accent); letter-spacing: 2px; font-size: 11px; }
+  .rev b { color: var(--fg); font-weight: 400; font-variant-numeric: tabular-nums; }
+
+  /* ============ 6 · ASSURANCE ============ */
+  .assure { border-top: 1px solid var(--line-2); padding-block: clamp(60px,9vh,110px); }
+  .assure-grid { display:grid; grid-template-columns: .8fr 1.2fr; gap: clamp(30px,6vw,80px); align-items:start; }
+  @media (max-width: 820px){ .assure-grid{ grid-template-columns:1fr; } }
+  .assure h2 { font-family: var(--serif); font-size: clamp(28px,4vw,48px); line-height:1.05; letter-spacing:-.012em; }
+  .assure h2 em { font-style: italic; color: var(--accent); }
+  .assure .lede { margin-top:22px; max-width: 46ch; color: var(--muted); font-size: clamp(15px,1.5vw,18px); line-height:1.7; }
+  .checklist { display:flex; flex-direction: column; }
+  .check { display:grid; grid-template-columns: 42px 1fr; gap: 18px; padding: 26px 0; border-top: 1px solid var(--line-2); }
+  .check:first-child { border-top: 0; }
+  .check .idx { font-family: var(--serif); font-size: 15px; color: var(--accent); font-variant-numeric: tabular-nums; padding-top: 3px; }
+  .check h4 { font-family: var(--serif); font-size: 20px; margin-bottom: 6px; }
+  .check p { color: var(--muted); font-size: 14px; margin:0; max-width: 52ch; }
+
+  /* ============ FOOTER ============ */
+  footer { border-top: 1px solid var(--line); padding-block: 54px 40px; }
+  .foot-top { display:flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; align-items:flex-start; }
+  .foot-word { font-family: var(--serif); font-size: 30px; }
+  .foot-word small { font-family: var(--sans); font-size:10px; letter-spacing:.26em; text-transform:uppercase; color:var(--muted); display:block; margin-top:8px; }
+  .foot-cols { display:flex; gap: clamp(30px,6vw,80px); flex-wrap: wrap; }
+  .foot-col h5 { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color: var(--muted); margin:0 0 16px; font-weight:500; }
+  .foot-col a { display:block; font-size: 14px; color: var(--fg); margin-bottom: 10px; opacity:.8; transition:opacity .2s; }
+  .foot-col a:hover { opacity: 1; color: var(--accent); }
+  .foot-bot { display:flex; justify-content: space-between; margin-top: 48px; padding-top: 22px; border-top:1px solid var(--line-2); color: var(--muted); font-size: 12px; letter-spacing:.03em; flex-wrap: wrap; gap: 10px; }
+
+  .textlink { color: var(--accent); border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); padding-bottom: 1px; transition: border-color .2s; }
+  .textlink:hover { border-color: var(--accent); }
+</style>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="word" href="#top">
+      <b>Wedding&nbsp;Gully</b><span class="dot"></span><small>Bengaluru</small>
+    </a>
+    <nav class="links">
+      <a href="#essay">On trust</a>
+      <a href="#curated">The studios</a>
+      <a class="begin" href="#begin">Begin your search</a>
+      <button class="themebtn" id="themeBtn" aria-label="Toggle theme">Dark</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- 1 · NARRATIVE HERO -->
+  <section class="hero wrap">
+    <svg class="aperture" viewBox="0 0 120 120" role="img" aria-label="Aperture mark">
+      <circle class="ring" cx="60" cy="60" r="52" />
+      <g class="spin">
+        <path class="blade" d="M60 12 L92 44 L60 60 Z" />
+        <path class="blade" d="M108 60 L76 92 L60 60 Z" />
+        <path class="blade" d="M60 108 L28 76 L60 60 Z" />
+        <path class="blade" d="M12 60 L44 28 L60 60 Z" />
+        <path class="blade" d="M60 12 L44 28 L60 60 Z" opacity=".5" />
+        <path class="blade" d="M108 60 L92 44 L60 60 Z" opacity=".5" />
+        <path class="blade" d="M60 108 L76 92 L60 60 Z" opacity=".5" />
+        <path class="blade" d="M12 60 L28 76 L60 60 Z" opacity=".5" />
+      </g>
+      <circle class="ring" cx="60" cy="60" r="15" />
+    </svg>
+
+    <div class="hero-tag"><span class="ln"></span><span class="eyebrow">A vetted index · Bengaluru photography &amp; film</span></div>
+    <h1 class="cover">A wedding is <em>photographed</em> once. <span class="q">Everything after</span> is the picture.</h1>
+
+    <div class="hero-foot">
+      <p class="hero-lede">Decades from now, a single archive of frames is all that will stand in for the day itself — the light, the faces, the people no longer in the room. This is not a place to <b>browse two hundred vendors</b>. It is where a small number of Bengaluru's photographers and film-makers are met, questioned and trusted before you ever meet them.</p>
+      <div class="scrollcue">
+        <span>Read on</span>
+        <svg viewBox="0 0 16 30" aria-hidden="true"><line class="dash" x1="8" y1="2" x2="8" y2="20"/><circle class="dot" cx="8" cy="8" r="2.4"/><path class="dash" d="M3 16 L8 22 L13 16" fill="none"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · THE ESSAY -->
+  <section class="essay wrap" id="essay">
+    <div class="essay-head">
+      <div class="kf"><span class="folio">I</span><span class="eyebrow">A note on trust</span></div>
+      <h2>Why the search almost always <em>fails</em> the couple.</h2>
+    </div>
+
+    <div class="essay-body">
+      <p class="drop">Every wedding photographer's portfolio is the same portfolio: thirty perfect frames, from the best day of their year, lit gold and cut to music. It is real, and it tells you almost nothing. It cannot show you the median wedding — the one shot in a crowded Jayanagar hall at eleven at night, when the plan has slipped by two hours and the family is tired. That is the wedding you are actually hiring for.</p>
+
+      <p>So couples fall back on the only signals they have. A hashtag on Instagram. A number a planner passes along — often for a cut you never see. A cousin who was happy enough. And the gap between the reel and the delivery is exactly where it goes wrong: the lead shooter you met at the pitch, replaced on the day by someone you didn't; the eight-month wait for an album; the drive of files that arrives thinner than the promise.</p>
+
+      <p class="pull">The problem was never too few photographers. It was no way to know which ones keep their word.</p>
+
+      <p>Wedding Gully begins from the opposite end. We keep the category deliberately narrow — for now, only <b>photographers and film studios, only in Bengaluru</b> — because trust does not scale by the thousand. Before a studio is ever shown to you, we have sat across from the people behind it, watched complete and unedited galleries from real recent weddings, and spoken to the couples who lived through their delivery.</p>
+
+      <p>What you meet here, then, is not a marketplace of options. It is a shortlist someone has already stood behind — so the only judgement left to you is the one that should be yours alone: whose way of seeing feels like <em>yours</em>. <a class="textlink" href="#begin">Begin your search below</a>.</p>
+    </div>
+  </section>
+
+  <!-- 3 · CURATED STUDIOS -->
+  <section class="curated wrap" id="curated">
+    <div class="sec-lead">
+      <div class="kf"><span class="folio">II</span><span class="eyebrow">From the current index</span></div>
+      <div>
+        <h2>Three studios, each in <em>its own register.</em></h2>
+      </div>
+      <p>Not ranked, not sponsored. A short editorial cut from the studios currently carrying our seal — read them the way you'd read a page, not a listings grid.</p>
+    </div>
+
+    <article class="studio">
+      <div class="plate"><span class="mng">A</span>
+        <svg class="verified" viewBox="0 0 24 24" aria-label="Vetted"><circle cx="12" cy="12" r="10"/><path d="M8,12.5 l2.5,2.5 l5.5,-6"/></svg>
+      </div>
+      <div class="studio-body">
+        <div class="loc">Indiranagar<span class="vtag">· Vetted</span></div>
+        <h3>Aperture &amp; Co.</h3>
+        <p>An editorial hand that treats a wedding like a magazine shot on the day — composed, patient, unafraid of stillness. What set them apart in review: they delivered a full, unhurried gallery to their last three couples inside <em>six weeks</em>, every time, and shot each with the same two people who took the pitch.</p>
+      </div>
+      <div class="studio-meta">
+        <span class="reg">Editorial · Film</span>
+        <span class="det">Est. archive since 2016</span>
+      </div>
+    </article>
+
+    <article class="studio">
+      <div class="plate"><span class="mng">Q</span>
+        <svg class="verified" viewBox="0 0 24 24" aria-label="Vetted"><circle cx="12" cy="12" r="10"/><path d="M8,12.5 l2.5,2.5 l5.5,-6"/></svg>
+      </div>
+      <div class="studio-body">
+        <div class="loc">Koramangala<span class="vtag">· Vetted</span></div>
+        <h3>The Quiet Frame</h3>
+        <p>Documentary to the core — they will not pose you, and they will not miss the moment you didn't know to look for. A two-person team by choice; they cap themselves at a handful of weddings a season so that no day is ever the second on a double-booked calendar. The unedited galleries we reviewed held up frame for frame, not just at the highlights.</p>
+      </div>
+      <div class="studio-meta">
+        <span class="reg">Documentary · Candid</span>
+        <span class="det">Limited dates each season</span>
+      </div>
+    </article>
+
+    <article class="studio">
+      <div class="plate"><span class="mng">V</span>
+        <svg class="verified" viewBox="0 0 24 24" aria-label="Vetted"><circle cx="12" cy="12" r="10"/><path d="M8,12.5 l2.5,2.5 l5.5,-6"/></svg>
+      </div>
+      <div class="studio-body">
+        <div class="loc">UB City<span class="vtag">· Vetted</span></div>
+        <h3>Studio Veranda</h3>
+        <p>Fine-art and painterly — tonal, textured work for couples who want the album to feel a little out of time. The most requested name on this cut, and the hardest to book; we verified their contracts and turnaround against our standard precisely <em>because</em> demand tempts studios to over-commit. They held to it.</p>
+      </div>
+      <div class="studio-meta">
+        <span class="reg">Fine-art · Editorial</span>
+        <span class="det">Signature tier</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- 4 · THE INVITATION + QUIZ -->
+  <section class="invite" id="begin">
+    <div class="wrap">
+      <div class="invite-head">
+        <span class="folio">III</span>
+        <h2>Now, tell us about <em>your day.</em></h2>
+        <p>Four questions, about a minute. Answer loosely — this only decides who we show you first, and you can refine anything after.</p>
+      </div>
+
+      <div class="quiz-card">
+        <div class="quiz-top">
+          <div class="steps" id="steps">
+            <button class="step active" data-s="0" type="button"><span class="num">1</span><span class="lab">Coverage</span></button>
+            <button class="step" data-s="1" type="button"><span class="num">2</span><span class="lab">Budget</span></button>
+            <button class="step" data-s="2" type="button"><span class="num">3</span><span class="lab">Date</span></button>
+            <button class="step" data-s="3" type="button"><span class="num">4</span><span class="lab">Style</span></button>
+          </div>
+          <span class="eyebrow" id="stepReadout">Step 01 / 04</span>
+        </div>
+        <div class="prog"><i id="prog"></i></div>
+
+        <div class="panel-body">
+          <!-- Q1 -->
+          <div class="qslide on" data-slide="0">
+            <div class="q-count">Question one</div>
+            <h2 class="q-title">What should be captured?</h2>
+            <p class="q-help">You can change this later. It simply shapes who we show first.</p>
+            <div class="opts three" data-group="coverage" data-key="coverage">
+              <button class="opt" data-val="photo" type="button"><span class="ot">Photography</span><span class="od">Stills — portraiture &amp; candids</span></button>
+              <button class="opt" data-val="film" type="button"><span class="ot">Films</span><span class="od">Cinematic wedding films</span></button>
+              <button class="opt" data-val="both" aria-pressed="true" type="button"><span class="ot">Both</span><span class="od">A single studio for stills &amp; film</span></button>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="qslide" data-slide="1">
+            <div class="q-count">Question two</div>
+            <h2 class="q-title">What is your comfortable budget?</h2>
+            <p class="q-help">Per studio, for wedding-day coverage. A guide, not a ceiling.</p>
+            <div class="budget">
+              <div class="val" id="budgetVal">₹1,50,000<span> onwards</span></div>
+              <div class="rng" id="budgetBand">Premium — the busy middle of the Bengaluru market.</div>
+              <input type="range" id="budgetRange" min="0" max="4" step="1" value="2" aria-label="Budget range" />
+              <div class="ticks"><span>₹60k</span><span>₹1L</span><span>₹1.5L</span><span>₹2.5L</span><span>₹4L+</span></div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="qslide" data-slide="2">
+            <div class="q-count">Question three</div>
+            <h2 class="q-title">When are you marrying?</h2>
+            <p class="q-help">Bengaluru's photographers book out fastest across the winter season.</p>
+            <div class="datewrap">
+              <div class="field">
+                <label for="mm">Month</label>
+                <select id="mm">
+                  <option value="">Select</option>
+                  <option>January</option><option>February</option><option>March</option>
+                  <option>April</option><option>May</option><option>June</option>
+                  <option>July</option><option>August</option><option>September</option>
+                  <option>October</option><option selected>November</option><option>December</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="yy">Year</label>
+                <select id="yy"><option selected>2026</option><option>2027</option><option>2028</option></select>
+              </div>
+            </div>
+            <div class="season-note" id="seasonNote"><b>Peak season.</b> We will prioritise studios with dates still open that month.</div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="qslide" data-slide="3">
+            <div class="q-count">Question four</div>
+            <h2 class="q-title">Which language feels like yours?</h2>
+            <p class="q-help">Choose the approach that moves you. It orders the shortlist.</p>
+            <div class="opts two" data-group="style" data-key="style">
+              <button class="opt" data-val="editorial" aria-pressed="true" type="button"><span class="ot">Editorial</span><span class="od">Composed, magazine-led, deliberate light</span></button>
+              <button class="opt" data-val="candid" type="button"><span class="ot">Candid &amp; documentary</span><span class="od">Unposed, in the moment, quietly observed</span></button>
+              <button class="opt" data-val="fineart" type="button"><span class="ot">Fine-art</span><span class="od">Painterly, textured, tonal &amp; timeless</span></button>
+              <button class="opt" data-val="classic" type="button"><span class="ot">Classic</span><span class="od">Traditional South-Indian ceremony craft</span></button>
+            </div>
+          </div>
+
+          <div class="panel-foot">
+            <button class="btn ghost" id="backBtn" type="button" disabled>Back</button>
+            <button class="btn" id="nextBtn" type="button">Continue <span class="ar">→</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · RESULTS -->
+  <section class="results wrap" id="results">
+    <div class="results-head">
+      <div>
+        <span class="eyebrow">Your shortlist</span>
+        <h2 style="margin-top:10px">Studios matched to you</h2>
+      </div>
+      <div class="meta" id="resultMeta">Answer the four questions above to draw your shortlist.</div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- 6 · ASSURANCE -->
+  <section class="assure" id="assurance">
+    <div class="wrap assure-grid">
+      <div>
+        <span class="eyebrow">What the seal is worth</span>
+        <h2 style="margin-top:18px">Every listing is <em>earned</em>, not bought.</h2>
+        <p class="lede">This is the work behind the word "vetted" — the four steps a studio clears before it can appear on Wedding Gully, and the reason a shortlist from us is worth more than a search anywhere else.</p>
+      </div>
+      <div class="checklist">
+        <div class="check"><div class="idx">i</div><div><h4>Met in person</h4><p>We sit with every studio — no listing is approved from a portfolio link alone. The people behind the lens are known to us.</p></div></div>
+        <div class="check"><div class="idx">ii</div><div><h4>Full weddings reviewed</h4><p>We view complete, unedited galleries from recent Bengaluru weddings — not the highlight reel — to judge consistency across a real day.</p></div></div>
+        <div class="check"><div class="idx">iii</div><div><h4>Couples contacted</h4><p>We speak directly to past couples about delivery timelines, conduct on the day, and whether the final work matched the promise.</p></div></div>
+        <div class="check"><div class="idx">iv</div><div><h4>Terms held to standard</h4><p>Contracts, deliverables and turnaround are checked against our standard before a studio earns the seal — and re-verified yearly.</p></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-word">Wedding&nbsp;Gully<small>A vetted index · Bengaluru</small></div>
+      <div class="foot-cols">
+        <div class="foot-col"><h5>Read</h5><a href="#essay">On trust</a><a href="#curated">The studios</a><a href="#assurance">The Guarantee</a></div>
+        <div class="foot-col"><h5>Neighbourhoods</h5><a href="#begin">Indiranagar</a><a href="#begin">Koramangala</a><a href="#begin">Whitefield</a><a href="#begin">Jayanagar</a></div>
+        <div class="foot-col"><h5>Studio</h5><a href="#begin">Apply to be listed</a><a href="#assurance">Vetting standard</a><a href="#top">Contact</a></div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© MMXXVI Wedding Gully. Photography &amp; Film — the first category.</span>
+      <span>Made in Bengaluru</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- THEME ---------- */
+  var root = document.documentElement, tbtn = document.getElementById('themeBtn');
+  function apply(t){ root.setAttribute('data-theme', t); tbtn.textContent = t === 'dark' ? 'Light' : 'Dark'; }
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  apply(mq.matches ? 'dark' : 'light');
+  tbtn.addEventListener('click', function(){
+    apply(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ---------- STATE ---------- */
+  var state = { coverage:'both', budget:2, style:'editorial', month:'November' };
+
+  document.querySelectorAll('[data-group]').forEach(function(g){
+    var key = g.getAttribute('data-key');
+    g.querySelectorAll('.opt').forEach(function(b){
+      b.addEventListener('click', function(){
+        g.querySelectorAll('.opt').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+        b.setAttribute('aria-pressed','true');
+        state[key] = b.getAttribute('data-val');
+      });
+    });
+  });
+
+  var budgets = [
+    {v:'₹60,000', band:'Considered — trusted independents & rising names.'},
+    {v:'₹1,00,000', band:'Established — full-day photography, refined delivery.'},
+    {v:'₹1,50,000', band:'Premium — the busy middle of the Bengaluru market.'},
+    {v:'₹2,50,000', band:'Signature — sought-after studios, limited dates.'},
+    {v:'₹4,00,000+', band:'Couture — the city’s most requested names.'}
+  ];
+  var rng = document.getElementById('budgetRange'),
+      bVal = document.getElementById('budgetVal'), bBand = document.getElementById('budgetBand');
+  function drawBudget(){
+    var b = budgets[+rng.value];
+    bVal.innerHTML = b.v + '<span> onwards</span>';
+    bBand.textContent = b.band;
+    state.budget = +rng.value;
+  }
+  rng.addEventListener('input', drawBudget); drawBudget();
+
+  var peak = { 'November':1,'December':1,'January':1,'February':1 };
+  var mm = document.getElementById('mm'), note = document.getElementById('seasonNote');
+  mm.addEventListener('change', function(){
+    state.month = mm.value || '—';
+    if(peak[mm.value]) note.innerHTML = '<b>Peak season.</b> We will prioritise studios with dates still open that month.';
+    else if(mm.value) note.innerHTML = '<b>Open season.</b> Wider availability — more of your shortlist will have your date free.';
+    else note.innerHTML = '<b>Choose a month</b> to see availability signals.';
+  });
+
+  /* ---------- WIZARD ---------- */
+  var slides = document.querySelectorAll('.qslide'),
+      steps = document.querySelectorAll('.step'),
+      prog = document.getElementById('prog'),
+      readout = document.getElementById('stepReadout'),
+      back = document.getElementById('backBtn'), next = document.getElementById('nextBtn');
+  var i = 0, LAST = slides.length - 1, revealed = false;
+  function render(){
+    slides.forEach(function(s,k){ s.classList.toggle('on', k===i); });
+    steps.forEach(function(s,k){
+      s.classList.toggle('active', k===i);
+      s.classList.toggle('done', k<i);
+    });
+    prog.style.width = ((i+1)/slides.length*100) + '%';
+    readout.textContent = 'Step 0'+(i+1)+' / 0'+slides.length;
+    back.disabled = i===0;
+    next.innerHTML = i===LAST ? 'Draw my shortlist <span class="ar">→</span>' : 'Continue <span class="ar">→</span>';
+  }
+  next.addEventListener('click', function(){
+    if(i < LAST){ i++; render(); }
+    else { buildResults(); revealed = true; document.getElementById('results').scrollIntoView({behavior:'smooth'}); }
+  });
+  back.addEventListener('click', function(){ if(i>0){ i--; render(); } });
+  steps.forEach(function(s){ s.addEventListener('click', function(){ i=+s.getAttribute('data-s'); render(); }); });
+  render();
+
+  /* ---------- VENDOR DATA ---------- */
+  var VENDORS = [
+    {n:'Aperture & Co.', mng:'A', loc:'Indiranagar', price:'₹1,45,000', rating:'4.9', reviews:132, cover:['photo','film'], style:['editorial'], tags:['Editorial','Films']},
+    {n:'Saudh Studios', mng:'S', loc:'Jayanagar', price:'₹95,000', rating:'4.8', reviews:210, cover:['photo'], style:['classic'], tags:['Classic','South-Indian']},
+    {n:'The Quiet Frame', mng:'Q', loc:'Koramangala', price:'₹1,20,000', rating:'5.0', reviews:74, cover:['photo','film'], style:['candid'], tags:['Documentary','Candid']},
+    {n:'Studio Veranda', mng:'V', loc:'UB City', price:'₹2,80,000', rating:'4.9', reviews:58, cover:['photo','film'], style:['editorial','fineart'], tags:['Editorial','Fine-art']},
+    {n:'Marigold & Grain', mng:'M', loc:'Whitefield', price:'₹85,000', rating:'4.7', reviews:164, cover:['photo'], style:['candid'], tags:['Candid','Films']},
+    {n:'Ochre Weddings', mng:'O', loc:'HSR Layout', price:'₹1,10,000', rating:'4.8', reviews:96, cover:['photo','film'], style:['fineart'], tags:['Fine-art']},
+    {n:'Northlight Films', mng:'N', loc:'Indiranagar', price:'₹2,20,000', rating:'4.9', reviews:41, cover:['film'], style:['editorial'], tags:['Films','Cinematic']},
+    {n:'House of Sepia', mng:'H', loc:'Koramangala', price:'₹1,60,000', rating:'4.9', reviews:118, cover:['photo','film'], style:['fineart','editorial'], tags:['Fine-art','Editorial']},
+    {n:'Coriander Lane', mng:'C', loc:'Jayanagar', price:'₹78,000', rating:'4.6', reviews:203, cover:['photo'], style:['classic','candid'], tags:['Classic','Candid']}
+  ];
+  var budgetCeil = [90000, 130000, 180000, 300000, 9999999];
+  function toNum(p){ return +p.replace(/[₹,+]/g,''); }
+
+  function buildResults(){
+    var grid = document.getElementById('grid'); grid.innerHTML = '';
+    var ceil = budgetCeil[state.budget];
+    var list = VENDORS.map(function(v){
+      var score = 0;
+      if(state.coverage==='both'){ if(v.cover.length>1) score+=3; }
+      else if(v.cover.indexOf(state.coverage)>=0) score+=3;
+      if(v.style.indexOf(state.style)>=0) score+=3;
+      if(toNum(v.price) <= ceil) score+=2; else score-=1;
+      score += (parseFloat(v.rating)-4.5);
+      return {v:v, score:score};
+    }).sort(function(a,b){ return b.score - a.score; }).slice(0,6);
+
+    document.getElementById('resultMeta').innerHTML =
+      'Showing <b>'+list.length+'</b> of 38 vetted studios · sorted by fit';
+
+    list.forEach(function(o){
+      var v = o.v;
+      var stars = '★★★★★';
+      var el = document.createElement('article'); el.className = 'vend';
+      el.innerHTML =
+        '<div class="rplate">'+
+          '<span class="tag">'+ v.tags[0] +'</span>'+
+          '<svg class="verified" viewBox="0 0 24 24" aria-label="Vetted"><circle cx="12" cy="12" r="10"/><path d="M8,12.5 l2.5,2.5 l5.5,-6"/></svg>'+
+          '<span class="mng">'+ v.mng +'</span>'+
+        '</div>'+
+        '<div class="vend-body">'+
+          '<div class="loc">'+ v.loc +' · Bengaluru</div>'+
+          '<h3>'+ v.n +'</h3>'+
+          '<div class="style-tags">'+ v.tags.map(function(t){return '<span>'+t+'</span>';}).join('') +'</div>'+
+          '<div class="vend-foot">'+
+            '<div class="price"><small>From</small>'+ v.price +'</div>'+
+            '<div class="rev"><div class="stars">'+stars+'</div><b>'+ v.rating +'</b> · '+ v.reviews +' reviews</div>'+
+          '</div>'+
+        '</div>';
+      grid.appendChild(el);
+    });
+  }
+})();
+</script>
