@@ -1,0 +1,825 @@
+<title>Wedding Gully — Vetted Wedding Photographers, Bangalore</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    /* ---- Jewel-tone dark: the natural default ---- */
+    --ground:    #24060f;   /* oxblood velvet        */
+    --ground-2:  #0c2e24;   /* deep emerald panel    */
+    --surface:   #33101c;   /* raised maroon         */
+    --surface-2: #3d1523;
+    --ink:       #f2e7cf;   /* warm ivory            */
+    --ink-soft:  #cbb488;   /* aged gold-ivory       */
+    --ink-mute:  #9a7f6a;
+    --gold:      #c6a052;
+    --gold-hi:   #ecd79a;
+    --gold-lo:   #8a6a2c;
+    --emerald:   #2f8d68;
+    --emerald-dp:#0e5a40;
+    --line:      rgba(198,160,82,.30);
+    --line-soft: rgba(198,160,82,.16);
+    --shadow:    rgba(0,0,0,.55);
+    --foil: linear-gradient(135deg,#8a6a2c 0%,#ecd79a 28%,#c6a052 52%,#f4e6b6 72%,#9a7729 100%);
+    --card-grad: linear-gradient(165deg,#3d1523 0%,#2a0a13 100%);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ground:    #f6eedd;  /* parchment           */
+      --ground-2:  #ece0c6;  /* warm sand panel     */
+      --surface:   #fbf4e4;
+      --surface-2: #ffffff;
+      --ink:       #3a0a16;  /* oxblood ink         */
+      --ink-soft:  #6e4a2f;
+      --ink-mute:  #8f6a4c;
+      --gold:      #9a7524;
+      --gold-hi:   #c6a052;
+      --gold-lo:   #7c5c1c;
+      --emerald:   #0e5a40;
+      --emerald-dp:#0e5a40;
+      --line:      rgba(122,90,30,.34);
+      --line-soft: rgba(122,90,30,.18);
+      --shadow:    rgba(58,10,22,.16);
+      --foil: linear-gradient(135deg,#7c5c1c 0%,#c9a94f 30%,#9a7524 55%,#d8bd6a 74%,#6e4e15 100%);
+      --card-grad: linear-gradient(165deg,#fffaf0 0%,#f4e9cf 100%);
+    }
+  }
+  /* explicit toggle overrides — must win both directions */
+  :root[data-theme="dark"] {
+    --ground:#24060f; --ground-2:#0c2e24; --surface:#33101c; --surface-2:#3d1523;
+    --ink:#f2e7cf; --ink-soft:#cbb488; --ink-mute:#9a7f6a;
+    --gold:#c6a052; --gold-hi:#ecd79a; --gold-lo:#8a6a2c;
+    --emerald:#2f8d68; --emerald-dp:#0e5a40;
+    --line:rgba(198,160,82,.30); --line-soft:rgba(198,160,82,.16);
+    --shadow:rgba(0,0,0,.55);
+    --foil:linear-gradient(135deg,#8a6a2c 0%,#ecd79a 28%,#c6a052 52%,#f4e6b6 72%,#9a7729 100%);
+    --card-grad:linear-gradient(165deg,#3d1523 0%,#2a0a13 100%);
+  }
+  :root[data-theme="light"] {
+    --ground:#f6eedd; --ground-2:#ece0c6; --surface:#fbf4e4; --surface-2:#ffffff;
+    --ink:#3a0a16; --ink-soft:#6e4a2f; --ink-mute:#8f6a4c;
+    --gold:#9a7524; --gold-hi:#c6a052; --gold-lo:#7c5c1c;
+    --emerald:#0e5a40; --emerald-dp:#0e5a40;
+    --line:rgba(122,90,30,.34); --line-soft:rgba(122,90,30,.18);
+    --shadow:rgba(58,10,22,.16);
+    --foil:linear-gradient(135deg,#7c5c1c 0%,#c9a94f 30%,#9a7524 55%,#d8bd6a 74%,#6e4e15 100%);
+    --card-grad:linear-gradient(165deg,#fffaf0 0%,#f4e9cf 100%);
+  }
+
+  * { box-sizing: border-box; }
+
+  :root {
+    --font-display: "Didot","Bodoni MT","Hoefler Text","GFS Didot",Garamond,"Times New Roman",serif;
+    --font-body: "Palatino Linotype","Iowan Old Style",Palatino,"Book Antiqua",Georgia,serif;
+    --font-ui: "Avenir Next","Avenir","Gill Sans","Gill Sans MT","Century Gothic",system-ui,sans-serif;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--ink);
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(47,141,104,.10), transparent 60%),
+      var(--ground);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* subtle woven jaali texture over the whole ground */
+  body::before {
+    content:"";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: .5;
+    background-image:
+      radial-gradient(circle at 1px 1px, var(--line-soft) 1px, transparent 0);
+    background-size: 22px 22px;
+    mix-blend-mode: soft-light;
+    z-index: 0;
+  }
+
+  .wrap { position: relative; z-index: 1; }
+
+  /* ---- Manuscript frame ---- */
+  .frame {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(10px, 2.2vw, 26px);
+  }
+  .frame-inner {
+    position: relative;
+    border: 1px solid var(--line);
+    outline: 1px solid var(--line-soft);
+    outline-offset: 5px;
+    border-radius: 3px;
+  }
+  .frame-inner::after {
+    content:"";
+    position:absolute; inset: 9px;
+    border: 1px solid var(--line-soft);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .corner { position: absolute; width: 46px; height: 46px; color: var(--gold); opacity:.9; z-index:2; }
+  .corner.tl { top: -1px; left: -1px; }
+  .corner.tr { top: -1px; right: -1px; transform: scaleX(-1); }
+  .corner.bl { bottom: -1px; left: -1px; transform: scaleY(-1); }
+  .corner.br { bottom: -1px; right: -1px; transform: scale(-1,-1); }
+
+  .pad { padding: clamp(20px, 4vw, 56px); }
+
+  /* ---- Typography ---- */
+  h1,h2,h3 { font-family: var(--font-display); font-weight: 400; text-wrap: balance; margin: 0; }
+  .eyebrow {
+    font-family: var(--font-ui);
+    text-transform: uppercase;
+    letter-spacing: .32em;
+    font-size: .70rem;
+    color: var(--gold);
+    font-weight: 600;
+    display: inline-flex; align-items: center; gap: .7em;
+  }
+  .eyebrow::before, .eyebrow.two::after {
+    content:""; width: 26px; height: 1px; background: var(--foil); display:inline-block;
+  }
+  .foil-text {
+    background: var(--foil);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+
+  /* ---- Top bar ---- */
+  header.bar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    padding: clamp(16px,3vw,26px) clamp(20px,4vw,44px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .brand { display: flex; align-items: baseline; gap: .55rem; }
+  .brand .mark { font-family: var(--font-display); font-size: 1.55rem; letter-spacing: .01em; }
+  .brand .tag {
+    font-family: var(--font-ui); font-size: .6rem; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--ink-mute);
+  }
+  nav.links { display: flex; gap: 30px; font-family: var(--font-ui); font-size: .8rem; letter-spacing:.06em; }
+  nav.links a { color: var(--ink-soft); text-decoration: none; transition: color .2s; }
+  nav.links a:hover { color: var(--gold-hi); }
+  .theme-btn {
+    font-family: var(--font-ui); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    background: transparent; color: var(--ink-soft);
+    border: 1px solid var(--line); border-radius: 40px;
+    padding: 8px 15px; cursor: pointer; transition: all .2s;
+  }
+  .theme-btn:hover { color: var(--gold-hi); border-color: var(--gold); }
+
+  /* ---- Hero ---- */
+  .hero { position: relative; text-align: center; padding: clamp(30px,6vw,70px) clamp(18px,4vw,40px) clamp(24px,4vw,48px); }
+  .mehrab {
+    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+    width: min(640px, 92%); height: 100%;
+    z-index: 0; color: var(--gold); opacity: .28; pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+  .hero .place {
+    font-family: var(--font-ui); font-size: .74rem; letter-spacing:.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 7vw, 4.6rem);
+    line-height: 1.02; letter-spacing: -0.01em;
+  }
+  .hero h1 em { font-style: italic; }
+  .hero .sub {
+    margin: 22px auto 0; max-width: 34em; color: var(--ink-soft);
+    font-size: clamp(1rem,1.6vw,1.18rem);
+  }
+  .paisley { display:block; margin: 26px auto 0; width: 150px; height: 22px; color: var(--gold); opacity:.85; }
+
+  /* ---- Quiz card ---- */
+  .quiz {
+    position: relative; z-index: 1;
+    max-width: 640px; margin: 8px auto 0;
+    background: var(--card-grad);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 0 30px 70px -30px var(--shadow);
+  }
+  .quiz-top {
+    display:flex; align-items:center; justify-content: space-between;
+    padding: 16px 24px; border-bottom: 1px solid var(--line-soft);
+  }
+  .quiz-top .q-label { font-family: var(--font-ui); font-size:.66rem; letter-spacing:.24em; text-transform:uppercase; color: var(--ink-mute); }
+  .steps { display:flex; gap: 7px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--gold); background: transparent; transition: background .25s; }
+  .dot.on { background: var(--foil); border-color: transparent; }
+  .quiz-body { padding: clamp(26px,4vw,40px) clamp(22px,4vw,40px); min-height: 250px; }
+  .q-step { display: none; animation: fade .45s ease both; }
+  .q-step.active { display: block; }
+  @keyframes fade { from { opacity:0; transform: translateY(8px);} to {opacity:1; transform:none;} }
+  .q-step h2 { font-size: clamp(1.5rem,3.4vw,2rem); line-height:1.15; margin-bottom: 6px; }
+  .q-step p.hint { color: var(--ink-mute); font-size:.9rem; margin:0 0 22px; }
+  .opts { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opt {
+    font-family: var(--font-ui); font-size: .92rem; text-align:left;
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--line); border-radius: 3px;
+    padding: 15px 16px; cursor: pointer; transition: all .18s;
+    display:flex; flex-direction: column; gap: 3px;
+  }
+  .opt small { color: var(--ink-mute); font-size: .74rem; font-family: var(--font-ui); letter-spacing:.02em; }
+  .opt:hover { border-color: var(--gold); background: rgba(198,160,82,.06); transform: translateY(-1px); }
+  .opt.sel { border-color: var(--gold); background: rgba(198,160,82,.12); box-shadow: inset 0 0 0 1px var(--gold); }
+  .quiz-foot {
+    display:flex; align-items:center; justify-content: space-between; gap:14px;
+    padding: 16px 24px 20px; border-top: 1px solid var(--line-soft);
+  }
+  .link-back {
+    background:none; border:none; cursor:pointer; color: var(--ink-mute);
+    font-family: var(--font-ui); font-size:.8rem; letter-spacing:.04em; padding:8px 4px;
+  }
+  .link-back:hover { color: var(--ink); }
+  .link-back[disabled] { opacity:.3; cursor: default; }
+  .btn-gold {
+    font-family: var(--font-ui); font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+    font-size:.78rem;
+    background: var(--foil); color: #2a0a13;
+    border: none; border-radius: 40px; padding: 13px 26px; cursor:pointer;
+    box-shadow: 0 8px 22px -10px var(--gold-lo);
+    transition: transform .15s, filter .15s;
+  }
+  .btn-gold:hover { transform: translateY(-1px); filter: brightness(1.06); }
+
+  /* quiz result */
+  .result { text-align:center; }
+  .result .seal-lg { width: 66px; height:66px; margin: 0 auto 14px; color: var(--gold); }
+  .result h2 { margin-bottom: 10px; }
+  .result p { color: var(--ink-soft); max-width: 30em; margin: 0 auto 22px; }
+  .result .matchline { font-family: var(--font-ui); font-size:.8rem; letter-spacing:.05em; color: var(--gold); margin-bottom:24px; }
+
+  /* ---- Trust strip ---- */
+  .trust {
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap: clamp(20px,5vw,60px);
+    padding: clamp(22px,3vw,30px) clamp(20px,4vw,44px);
+    border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft);
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,.06));
+  }
+  .trust .stat { text-align:center; }
+  .trust .stat b { font-family: var(--font-display); font-size: 1.9rem; display:block; line-height:1; }
+  .trust .stat span { font-family: var(--font-ui); font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color: var(--ink-mute); }
+  .trust .divider { width:1px; height:38px; background: var(--line); }
+
+  /* ---- Section scaffolding ---- */
+  section.block { padding: clamp(46px,7vw,86px) clamp(20px,5vw,64px); }
+  section.emerald { background:
+      radial-gradient(140% 120% at 50% 0%, rgba(47,141,104,.12), transparent 55%),
+      var(--ground-2); }
+  .sec-head { text-align:center; max-width: 640px; margin: 0 auto clamp(34px,5vw,52px); }
+  .sec-head h2 { font-size: clamp(2rem,4.6vw,3rem); line-height:1.08; margin: 14px 0 0; }
+  .sec-head p { color: var(--ink-soft); margin: 16px auto 0; max-width: 40em; }
+
+  /* ---- Trust Guarantee feature ---- */
+  .guarantee { display:grid; grid-template-columns: 200px 1fr; gap: clamp(28px,5vw,56px); align-items:center; max-width: 940px; margin: 0 auto; }
+  .seal {
+    width: 200px; height: 200px; margin: 0 auto; color: var(--gold);
+    filter: drop-shadow(0 14px 30px var(--shadow));
+    animation: slowspin 60s linear infinite;
+  }
+  @keyframes slowspin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .seal, .seal-lg { animation: none !important; } .q-step { animation:none; } }
+  .guarantee ul { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap: 14px; }
+  .guarantee li { display:flex; gap: 13px; align-items:flex-start; }
+  .guarantee li .tick { flex:none; width: 22px; height:22px; color: var(--gold); margin-top:2px; }
+  .guarantee li b { font-family: var(--font-body); font-weight:700; }
+  .guarantee li span { color: var(--ink-soft); }
+
+  /* ---- Vendor cards ---- */
+  .grid { display:grid; grid-template-columns: repeat(3,1fr); gap: clamp(16px,2.4vw,26px); max-width: 1040px; margin: 0 auto; }
+  .card {
+    background: var(--card-grad);
+    border: 1px solid var(--line-soft);
+    border-radius: 5px; overflow:hidden;
+    display:flex; flex-direction:column;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 26px 50px -26px var(--shadow); }
+  .card .photo {
+    aspect-ratio: 4/3; position: relative;
+    background: linear-gradient(135deg,#4a1626,#0e2f25);
+    overflow:hidden;
+  }
+  .card .photo .plabel {
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-display); font-style:italic; font-size: 1.1rem; color: rgba(242,231,207,.42);
+    letter-spacing:.02em;
+  }
+  .card .verified {
+    position:absolute; top:12px; left:12px;
+    display:flex; align-items:center; gap:6px;
+    background: rgba(12,20,16,.72); backdrop-filter: blur(3px);
+    border:1px solid var(--line); color: var(--gold-hi);
+    font-family: var(--font-ui); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+    padding: 6px 10px; border-radius: 30px;
+  }
+  .card .verified svg { width: 13px; height:13px; }
+  .card .body { padding: 18px 18px 20px; display:flex; flex-direction:column; gap: 8px; flex:1; }
+  .card .name { font-family: var(--font-display); font-size: 1.4rem; line-height:1.1; }
+  .card .area { font-family: var(--font-ui); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color: var(--ink-mute); }
+  .card .rate { display:flex; align-items:center; gap:8px; font-family: var(--font-ui); font-size:.82rem; color: var(--ink-soft); }
+  .card .rate .stars { color: var(--gold); letter-spacing:1px; }
+  .card .foot { margin-top:auto; padding-top:14px; border-top:1px solid var(--line-soft); display:flex; align-items:baseline; justify-content:space-between; }
+  .card .price b { font-family: var(--font-display); font-size:1.2rem; }
+  .card .price span { font-family: var(--font-ui); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase; color: var(--ink-mute); display:block; }
+  .card .go { font-family: var(--font-ui); font-size:.74rem; letter-spacing:.08em; color: var(--gold); text-decoration:none; }
+  .card .go:hover { color: var(--gold-hi); }
+
+  /* ---- Process steps ---- */
+  .process { display:grid; grid-template-columns: repeat(4,1fr); gap: clamp(18px,3vw,34px); max-width: 1000px; margin: 0 auto; }
+  .pstep { text-align:center; }
+  .pstep .num {
+    font-family: var(--font-display); font-size: 1rem; color: var(--gold);
+    width: 52px; height:52px; margin: 0 auto 16px; border:1px solid var(--gold); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; letter-spacing:.02em;
+  }
+  .pstep h3 { font-size: 1.28rem; margin-bottom: 8px; }
+  .pstep p { color: var(--ink-soft); font-size:.92rem; margin:0; }
+
+  /* ---- Testimonial ---- */
+  .quote { max-width: 760px; margin: 0 auto; text-align:center; }
+  .quote .glyph { font-family: var(--font-display); font-size: 4rem; color: var(--gold); line-height: .5; height: 30px; }
+  .quote blockquote { font-family: var(--font-display); font-style:italic; font-size: clamp(1.4rem,3vw,2.1rem); line-height:1.35; margin: 18px 0 24px; }
+  .quote cite { font-style: normal; font-family: var(--font-ui); font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color: var(--gold); }
+  .quote cite span { display:block; color: var(--ink-mute); letter-spacing:.1em; margin-top:5px; }
+
+  /* ---- Closing CTA ---- */
+  .closing { text-align:center; }
+  .closing h2 { font-size: clamp(2.2rem,5vw,3.4rem); }
+  .closing p { color: var(--ink-soft); max-width: 34em; margin: 16px auto 30px; }
+
+  /* ---- Footer ---- */
+  footer.foot {
+    border-top: 1px solid var(--line-soft);
+    padding: clamp(28px,4vw,40px) clamp(20px,4vw,44px);
+    display:flex; flex-wrap:wrap; align-items:center; justify-content: space-between; gap: 16px;
+    font-family: var(--font-ui); font-size: .76rem; color: var(--ink-mute); letter-spacing:.04em;
+  }
+  footer.foot .brand .mark { font-size: 1.15rem; }
+  footer.foot a { color: var(--ink-soft); text-decoration:none; }
+  footer.foot a:hover { color: var(--gold-hi); }
+  footer.foot .parent { font-size:.7rem; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--gold-hi); outline-offset: 3px; border-radius: 3px;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 860px) {
+    nav.links { display:none; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .process { grid-template-columns: 1fr 1fr; }
+    .guarantee { grid-template-columns: 1fr; text-align:center; }
+    .guarantee li { text-align:left; }
+    .seal { width: 150px; height:150px; }
+  }
+  @media (max-width: 560px) {
+    .opts { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr; }
+    .process { grid-template-columns: 1fr; }
+    .trust .divider { display:none; }
+    .brand .tag { display:none; }
+  }
+</style>
+
+<div class="wrap">
+<div class="frame">
+  <div class="frame-inner">
+    <!-- gold corner flourishes -->
+    <svg class="corner tl" viewBox="0 0 46 46" fill="none" aria-hidden="true"><path d="M2 44 V16 C2 8 8 2 16 2 H44" stroke="currentColor" stroke-width="1"/><path d="M2 34 C10 34 16 28 16 14 M16 14 C16 22 22 28 34 28" stroke="currentColor" stroke-width="1" opacity=".6"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/></svg>
+    <svg class="corner tr" viewBox="0 0 46 46" fill="none" aria-hidden="true"><path d="M2 44 V16 C2 8 8 2 16 2 H44" stroke="currentColor" stroke-width="1"/><path d="M2 34 C10 34 16 28 16 14 M16 14 C16 22 22 28 34 28" stroke="currentColor" stroke-width="1" opacity=".6"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/></svg>
+    <svg class="corner bl" viewBox="0 0 46 46" fill="none" aria-hidden="true"><path d="M2 44 V16 C2 8 8 2 16 2 H44" stroke="currentColor" stroke-width="1"/><path d="M2 34 C10 34 16 28 16 14 M16 14 C16 22 22 28 34 28" stroke="currentColor" stroke-width="1" opacity=".6"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/></svg>
+    <svg class="corner br" viewBox="0 0 46 46" fill="none" aria-hidden="true"><path d="M2 44 V16 C2 8 8 2 16 2 H44" stroke="currentColor" stroke-width="1"/><path d="M2 34 C10 34 16 28 16 14 M16 14 C16 22 22 28 34 28" stroke="currentColor" stroke-width="1" opacity=".6"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/></svg>
+
+    <!-- ===== Top bar ===== -->
+    <header class="bar">
+      <div class="brand">
+        <span class="mark foil-text">Wedding Gully</span>
+        <span class="tag">Bengaluru</span>
+      </div>
+      <nav class="links">
+        <a href="#discover">Discover</a>
+        <a href="#trust">The Trust Guarantee</a>
+        <a href="#featured">Photographers</a>
+        <a href="#how">How it works</a>
+      </nav>
+      <button class="theme-btn" id="themeToggle" type="button" aria-label="Switch light or dark theme">Light</button>
+    </header>
+
+    <!-- ===== Hero ===== -->
+    <div class="hero" id="discover">
+      <!-- Mughal cusped arch (mehrab) framing the quiz -->
+      <svg class="mehrab" viewBox="0 0 640 620" fill="none" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
+        <path d="M40 620 V300
+          C40 250 70 232 92 214
+          C70 196 66 168 92 150
+          C74 132 84 104 112 100
+          C104 74 126 50 156 56
+          C158 30 190 18 214 34
+          C226 8 268 8 282 34
+          C300 18 320 26 320 26
+          C320 26 340 18 358 34
+          C372 8 414 8 426 34
+          C450 18 482 30 484 56
+          C514 50 536 74 528 100
+          C556 104 566 132 548 150
+          C574 168 570 196 548 214
+          C570 232 600 250 600 300
+          V620"
+          stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M70 620 V300 C70 258 300 120 320 120 C340 120 570 258 570 300 V620"
+          stroke="currentColor" stroke-width="1" opacity=".5" stroke-linejoin="round"/>
+        <circle cx="320" cy="120" r="4" fill="currentColor"/>
+      </svg>
+
+      <div class="hero-inner">
+        <p class="place">Bangalore &nbsp;·&nbsp; Wedding Photography &amp; Film</p>
+        <h1>Find the photographer<br/>who'll frame <em>your</em><br/>forever.</h1>
+        <p class="sub">Every studio on Wedding Gully is hand-vetted before it ever reaches you. Answer four questions and we'll match you with the ones made for your day.</p>
+        <svg class="paisley" viewBox="0 0 150 22" fill="none" aria-hidden="true">
+          <path d="M0 11 H55" stroke="currentColor" stroke-width="1"/>
+          <path d="M150 11 H95" stroke="currentColor" stroke-width="1"/>
+          <path d="M75 3 C67 3 63 9 66 14 C68 18 76 18 78 13 C79 9 75 7 72 9" stroke="currentColor" stroke-width="1"/>
+          <circle cx="75" cy="11" r="1.6" fill="currentColor"/>
+          <circle cx="60" cy="11" r="1.4" fill="currentColor"/><circle cx="90" cy="11" r="1.4" fill="currentColor"/>
+        </svg>
+      </div>
+
+      <!-- ===== Guided quiz ===== -->
+      <div class="quiz" role="region" aria-label="Guided photographer finder">
+        <div class="quiz-top">
+          <span class="q-label" id="qLabel">Step 1 of 4</span>
+          <div class="steps" aria-hidden="true">
+            <span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+        </div>
+
+        <div class="quiz-body">
+          <!-- Step 1 -->
+          <div class="q-step active" data-step="1">
+            <h2>What are you looking for?</h2>
+            <p class="hint">We'll tune your matches to the coverage you want.</p>
+            <div class="opts">
+              <button class="opt" type="button">Photography<small>Stills, albums, candids</small></button>
+              <button class="opt" type="button">Cinematography<small>Wedding films &amp; teasers</small></button>
+              <button class="opt" type="button">Both<small>The full record of the day</small></button>
+              <button class="opt" type="button">Not sure yet<small>Show me the best of each</small></button>
+            </div>
+          </div>
+          <!-- Step 2 -->
+          <div class="q-step" data-step="2">
+            <h2>What's your budget?</h2>
+            <p class="hint">Per-wedding coverage. You can always widen this later.</p>
+            <div class="opts">
+              <button class="opt" type="button">Under ₹1,00,000<small>Intimate &amp; focused</small></button>
+              <button class="opt" type="button">₹1L – ₹2.5L<small>Most-loved range</small></button>
+              <button class="opt" type="button">₹2.5L – ₹5L<small>Signature studios</small></button>
+              <button class="opt" type="button">₹5L &amp; above<small>Flagship &amp; celebrity</small></button>
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div class="q-step" data-step="3">
+            <h2>When's the wedding?</h2>
+            <p class="hint">The best studios book six to nine months out.</p>
+            <div class="opts">
+              <button class="opt" type="button">Within 3 months<small>We'll flag who's free</small></button>
+              <button class="opt" type="button">3 – 6 months<small>Prime booking window</small></button>
+              <button class="opt" type="button">6 – 12 months<small>Plenty of choice</small></button>
+              <button class="opt" type="button">Just exploring<small>No date locked in</small></button>
+            </div>
+          </div>
+          <!-- Step 4 -->
+          <div class="q-step" data-step="4">
+            <h2>Which style feels like you?</h2>
+            <p class="hint">Pick the one that makes you lean in.</p>
+            <div class="opts">
+              <button class="opt" type="button">Timeless &amp; classic<small>Poised, elegant, formal</small></button>
+              <button class="opt" type="button">Candid &amp; documentary<small>Real moments, unposed</small></button>
+              <button class="opt" type="button">Rich &amp; editorial<small>Bold, styled, dramatic</small></button>
+              <button class="opt" type="button">Light &amp; fine-art<small>Soft, airy, painterly</small></button>
+            </div>
+          </div>
+          <!-- Result -->
+          <div class="q-step result" data-step="5">
+            <svg class="seal-lg" viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="34" stroke="currentColor" stroke-width="1.5"/><path d="M38 50 l8 8 l16-18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h2>We found your matches.</h2>
+            <p class="matchline">18 hand-vetted studios in Bangalore fit your day</p>
+            <p>Each one is verified, reviewed by real couples, and ready to hear from you. See them side by side and send your enquiry in a single tap.</p>
+            <button class="btn-gold" type="button">Reveal my 18 studios</button>
+          </div>
+        </div>
+
+        <div class="quiz-foot">
+          <button class="link-back" id="backBtn" type="button" disabled>&larr; Back</button>
+          <button class="btn-gold" id="nextBtn" type="button">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Trust strip ===== -->
+    <div class="trust">
+      <div class="stat"><b class="foil-text">240+</b><span>Studios reviewed</span></div>
+      <div class="divider"></div>
+      <div class="stat"><b class="foil-text">1 in 6</b><span>Passes our vetting</span></div>
+      <div class="divider"></div>
+      <div class="stat"><b class="foil-text">4.9<span style="display:inline;font-family:var(--font-display);font-size:1rem;letter-spacing:0;text-transform:none">★</span></b><span>Avg. couple rating</span></div>
+      <div class="divider"></div>
+      <div class="stat"><b class="foil-text">2,100+</b><span>Weddings shot</span></div>
+    </div>
+
+    <!-- ===== Trust Guarantee ===== -->
+    <section class="block" id="trust">
+      <div class="guarantee">
+        <div>
+          <svg class="seal" viewBox="0 0 200 200" fill="none" aria-label="Wedding Gully Trust Guarantee seal">
+            <defs>
+              <path id="ring" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/>
+            </defs>
+            <!-- cusped scalloped outer border -->
+            <g stroke="currentColor" stroke-width="1.3" fill="none">
+              <circle cx="100" cy="100" r="92"/>
+              <circle cx="100" cy="100" r="70"/>
+            </g>
+            <g fill="currentColor">
+              <!-- scallops -->
+              <g id="scallops"></g>
+            </g>
+            <text font-family="var(--font-ui)" font-size="11" letter-spacing="3.4" fill="currentColor">
+              <textPath href="#ring" startOffset="1%">HAND-VETTED · TRUST GUARANTEE · WEDDING GULLY · </textPath>
+            </text>
+            <!-- center emblem -->
+            <g transform="translate(100,100)" stroke="currentColor" stroke-width="1.6" fill="none">
+              <path d="M0-34 C8-20 22-16 30-16 C22-8 20 6 0 34 C-20 6 -22-8 -30-16 C-22-16 -8-20 0-34 Z"/>
+              <path d="M-11 2 l7 7 l15 -17" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <span class="eyebrow two">The Trust Guarantee</span>
+          <h2 style="font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;margin-top:14px;">No studio reaches you<br/>until it earns the seal.</h2>
+          <ul>
+            <li><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10.5" stroke="currentColor"/><path d="M7.5 12.4l3 3 6-6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Verified identity &amp; portfolio.</b> We confirm the studio is real, the work is theirs, and the team is who they say they are.</span></li>
+            <li><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10.5" stroke="currentColor"/><path d="M7.5 12.4l3 3 6-6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Real couples, real reviews.</b> Every rating comes from a wedding we can trace to a signed booking &mdash; never bought, never planted.</span></li>
+            <li><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10.5" stroke="currentColor"/><path d="M7.5 12.4l3 3 6-6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Clear pricing, honest availability.</b> Quoted ranges are checked, and calendars are kept current so you don't chase ghosts.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Featured photographers ===== -->
+    <section class="block emerald" id="featured">
+      <div class="sec-head">
+        <span class="eyebrow two">Currently in Bangalore</span>
+        <h2>Studios wearing the seal</h2>
+        <p>A handful of the vetted photographers &amp; filmmakers couples are booking across the city right now.</p>
+      </div>
+      <div class="grid">
+
+        <article class="card">
+          <div class="photo">
+            <div class="verified"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 1.8 3-.2.9 2.9 2.4 1.8-1 2.9 1 2.9-2.4 1.8-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9L3.3 16l1-2.9-1-2.9 2.4-1.8.9-2.9 3 .2z" stroke="currentColor"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Vetted</div>
+            <div class="plabel">Stories by Aarav</div>
+          </div>
+          <div class="body">
+            <span class="area">Indiranagar</span>
+            <div class="name">Stories by Aarav</div>
+            <div class="rate"><span class="stars">★★★★★</span> 4.9 · 132 weddings</div>
+            <div class="foot">
+              <div class="price"><span>From</span><b>₹1,45,000</b></div>
+              <a class="go" href="#">View studio →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="photo">
+            <div class="verified"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 1.8 3-.2.9 2.9 2.4 1.8-1 2.9 1 2.9-2.4 1.8-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9L3.3 16l1-2.9-1-2.9 2.4-1.8.9-2.9 3 .2z" stroke="currentColor"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Vetted</div>
+            <div class="plabel">Mehta &amp; Rao Films</div>
+          </div>
+          <div class="body">
+            <span class="area">Koramangala</span>
+            <div class="name">Mehta &amp; Rao Films</div>
+            <div class="rate"><span class="stars">★★★★★</span> 5.0 · 88 weddings</div>
+            <div class="foot">
+              <div class="price"><span>From</span><b>₹2,60,000</b></div>
+              <a class="go" href="#">View studio →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="photo">
+            <div class="verified"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 1.8 3-.2.9 2.9 2.4 1.8-1 2.9 1 2.9-2.4 1.8-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9L3.3 16l1-2.9-1-2.9 2.4-1.8.9-2.9 3 .2z" stroke="currentColor"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Vetted</div>
+            <div class="plabel">The Saffron Lens</div>
+          </div>
+          <div class="body">
+            <span class="area">Whitefield</span>
+            <div class="name">The Saffron Lens</div>
+            <div class="rate"><span class="stars">★★★★★</span> 4.8 · 205 weddings</div>
+            <div class="foot">
+              <div class="price"><span>From</span><b>₹85,000</b></div>
+              <a class="go" href="#">View studio →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="photo">
+            <div class="verified"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 1.8 3-.2.9 2.9 2.4 1.8-1 2.9 1 2.9-2.4 1.8-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9L3.3 16l1-2.9-1-2.9 2.4-1.8.9-2.9 3 .2z" stroke="currentColor"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Vetted</div>
+            <div class="plabel">Padmavati Studios</div>
+          </div>
+          <div class="body">
+            <span class="area">Jayanagar</span>
+            <div class="name">Padmavati Studios</div>
+            <div class="rate"><span class="stars">★★★★★</span> 4.9 · 176 weddings</div>
+            <div class="foot">
+              <div class="price"><span>From</span><b>₹1,20,000</b></div>
+              <a class="go" href="#">View studio →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="photo">
+            <div class="verified"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 1.8 3-.2.9 2.9 2.4 1.8-1 2.9 1 2.9-2.4 1.8-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9L3.3 16l1-2.9-1-2.9 2.4-1.8.9-2.9 3 .2z" stroke="currentColor"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Vetted</div>
+            <div class="plabel">Kiran Nayak Photography</div>
+          </div>
+          <div class="body">
+            <span class="area">UB City</span>
+            <div class="name">Kiran Nayak</div>
+            <div class="rate"><span class="stars">★★★★★</span> 5.0 · 61 weddings</div>
+            <div class="foot">
+              <div class="price"><span>From</span><b>₹3,40,000</b></div>
+              <a class="go" href="#">View studio →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="photo">
+            <div class="verified"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 1.8 3-.2.9 2.9 2.4 1.8-1 2.9 1 2.9-2.4 1.8-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9L3.3 16l1-2.9-1-2.9 2.4-1.8.9-2.9 3 .2z" stroke="currentColor"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Vetted</div>
+            <div class="plabel">Ivory &amp; Marigold</div>
+          </div>
+          <div class="body">
+            <span class="area">HSR Layout</span>
+            <div class="name">Ivory &amp; Marigold</div>
+            <div class="rate"><span class="stars">★★★★★</span> 4.9 · 143 weddings</div>
+            <div class="foot">
+              <div class="price"><span>From</span><b>₹1,75,000</b></div>
+              <a class="go" href="#">View studio →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== How vetting works ===== -->
+    <section class="block" id="how">
+      <div class="sec-head">
+        <span class="eyebrow two">How the seal is earned</span>
+        <h2>Four gates before a listing goes live</h2>
+      </div>
+      <div class="process">
+        <div class="pstep">
+          <div class="num">I</div>
+          <h3>Apply</h3>
+          <p>Studios submit portfolios, credentials and past client contacts to our team.</p>
+        </div>
+        <div class="pstep">
+          <div class="num">II</div>
+          <h3>Verify</h3>
+          <p>We confirm identity, authorship of the work, and that reviews trace to real weddings.</p>
+        </div>
+        <div class="pstep">
+          <div class="num">III</div>
+          <h3>Review</h3>
+          <p>A specialist scores craft, consistency and reliability against our Bangalore benchmark.</p>
+        </div>
+        <div class="pstep">
+          <div class="num">IV</div>
+          <h3>Seal</h3>
+          <p>Only the studios that clear every gate earn the Trust Guarantee and go live to couples.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Testimonial ===== -->
+    <section class="block emerald">
+      <div class="quote">
+        <div class="glyph">&ldquo;</div>
+        <blockquote>We'd been drowning in Instagram DMs and half-answered enquiries. Wedding Gully handed us three vetted studios that actually fit our budget &mdash; we booked our second call.</blockquote>
+        <cite>Ananya &amp; Rohit<span>Married at Taj West End, December 2025</span></cite>
+      </div>
+    </section>
+
+    <!-- ===== Closing CTA ===== -->
+    <section class="block closing">
+      <span class="eyebrow two">Your day, framed right</span>
+      <h2 style="margin-top:16px;">Meet the photographers<br/>worth your wedding.</h2>
+      <p>Four questions. Eighteen vetted studios. One that's yours. Begin the match &mdash; it takes under a minute.</p>
+      <a href="#discover" class="btn-gold" style="text-decoration:none;display:inline-block;">Start the match</a>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="foot">
+      <div class="brand">
+        <span class="mark foil-text">Wedding Gully</span>
+      </div>
+      <div style="display:flex;gap:22px;flex-wrap:wrap;">
+        <a href="#trust">Trust Guarantee</a>
+        <a href="#featured">Photographers</a>
+        <a href="#how">How it works</a>
+        <a href="#">List your studio</a>
+      </div>
+      <div class="parent">A companion to LetsAnnounce · Bengaluru, India</div>
+    </footer>
+
+  </div>
+</div>
+</div>
+
+<script>
+  // ---- Scalloped seal border (drawn once) ----
+  (function(){
+    var g = document.getElementById('scallops');
+    if(!g) return;
+    var cx=100, cy=100, R=82, n=32, ns="http://www.w3.org/2000/svg";
+    for(var i=0;i<n;i++){
+      var a = (i/n)*Math.PI*2;
+      var x = cx + Math.cos(a)*R, y = cy + Math.sin(a)*R;
+      var c = document.createElementNS(ns,'circle');
+      c.setAttribute('cx',x.toFixed(1)); c.setAttribute('cy',y.toFixed(1)); c.setAttribute('r','2');
+      g.appendChild(c);
+    }
+  })();
+
+  // ---- Theme toggle ----
+  (function(){
+    var btn = document.getElementById('themeToggle');
+    var root = document.documentElement;
+    function current(){
+      var t = root.getAttribute('data-theme');
+      if(t) return t;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light';
+    }
+    function sync(){ btn.textContent = current()==='dark' ? 'Light' : 'Dark'; }
+    btn.addEventListener('click', function(){
+      var next = current()==='dark' ? 'light':'dark';
+      root.setAttribute('data-theme', next);
+      sync();
+    });
+    sync();
+  })();
+
+  // ---- Guided quiz ----
+  (function(){
+    var steps = Array.prototype.slice.call(document.querySelectorAll('.q-step'));
+    var total = 4;
+    var cur = 1;
+    var label = document.getElementById('qLabel');
+    var back = document.getElementById('backBtn');
+    var next = document.getElementById('nextBtn');
+    var dots = document.querySelectorAll('.steps .dot');
+
+    function render(){
+      steps.forEach(function(s){ s.classList.toggle('active', +s.dataset.step === cur); });
+      dots.forEach(function(d,i){ d.classList.toggle('on', i < cur); });
+      back.disabled = cur === 1;
+      if(cur > total){
+        label.textContent = 'Your matches';
+        next.style.display = 'none';
+        back.textContent = '← Adjust answers';
+      } else {
+        label.textContent = 'Step ' + cur + ' of ' + total;
+        next.style.display = '';
+        next.textContent = cur === total ? 'See my matches' : 'Continue';
+        back.textContent = '← Back';
+      }
+    }
+
+    // option selection within a step
+    document.querySelectorAll('.q-step').forEach(function(step){
+      step.querySelectorAll('.opt').forEach(function(o){
+        o.addEventListener('click', function(){
+          step.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('sel'); });
+          o.classList.add('sel');
+        });
+      });
+    });
+
+    next.addEventListener('click', function(){
+      if(cur <= total){ cur++; render(); }
+    });
+    back.addEventListener('click', function(){
+      if(cur > 1){ cur--; if(cur <= total) next.style.display=''; render(); }
+    });
+    render();
+  })();
+</script>

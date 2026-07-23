@@ -1,0 +1,103 @@
+====================================================
+WEDDING GULLY - PROJECT IDEAS
+(Project Codename)
+====================================================
+
+STATUS
+- Codename only.
+- Final company and brand name TBD.
+- Build first, brand later.
+
+GOAL
+- AI-first wedding platform.
+- Premium wedding ecosystem.
+- Build for India first.
+- Global architecture from day one.
+
+VISION
+- One platform for everything related to weddings.
+- Invitations
+- Wedding websites
+- Vendor marketplace
+- AI Wedding Consultant
+- Planning tools
+- Guest management
+- Digital + Physical products
+
+TECH STACK
+- Frontend: Next.js + TypeScript
+- Backend: FastAPI
+- Database: Supabase
+- Auth: Supabase Auth
+- Storage: Supabase Storage
+- Docker for local development
+
+AI WORKFLOW
+- ChatGPT → Architecture / Product / Business
+- Claude Code → Development
+- Browser → UI review
+- No Figma
+- Documentation first
+
+DEVELOPMENT PRINCIPLES
+- AI-first development.
+- Documentation before coding.
+- Modular architecture.
+- Feature-based folders.
+- Clean APIs.
+- Mobile-first.
+- Premium UI.
+- Reusable components.
+- Vendor lock-in minimized.
+
+PROJECT STRUCTURE
+- apps/
+- packages/
+- docs/
+- knowledge/
+- prompts/
+- scripts/
+- assets/
+
+FEATURES (High Level)
+- User Authentication
+- Wedding Dashboard
+- Invitations
+- Wedding Website Builder
+- Vendor Marketplace
+- Boutique Listings
+- AI Consultant
+- Trust Guarantee
+- Orders
+- Payments
+- Notifications
+- Admin Panel
+- Analytics
+- CMS
+
+BUSINESS PRINCIPLES
+- Premium experience.
+- Trust over quantity.
+- Quality vendors.
+- AI-assisted workflows.
+- Scalable architecture.
+
+CURRENT DECISIONS
+- Codename: Wedding Gully
+- Dedicated GitHub account
+- Dedicated Gmail
+- Dedicated Supabase
+- Local development first
+- Avoid unnecessary subscriptions
+- Use free tiers where possible
+- No Railway until needed
+- No Figma
+
+TODO
+- Engineering documentation
+- Database design
+- API design
+- Design system
+- UI components
+- MVP planning
+- Claude implementation
